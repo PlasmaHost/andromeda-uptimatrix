@@ -31,7 +31,7 @@ A modern, responsive web application built with Next.js 15 and React 18, featuri
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/andromeda-uptimatrix.git
+git clone https://github.com/iRazvan2745/andromeda-uptimatrix.git
 cd andromeda-uptimatrix
 ```
 
