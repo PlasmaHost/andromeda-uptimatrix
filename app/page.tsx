@@ -24,9 +24,16 @@ export default function Home() {
   const [data, setData] = useState<StatusData>(defaultData);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
-    fetch("https://api.uptimematrix.com/b8a5ef2a-a6bc-4c33-b651-9f3efcaadcf2", {
+    if (!apiUrl) {
+      setError('API URL is not configured');
+      setLoading(false);
+      return;
+    }
+
+    fetch(apiUrl, {
       headers: {
         'Accept': 'application/json',
       },
