@@ -11,10 +11,12 @@ export interface StatusData {
     statusUpdates: boolean;
   };
   services: {
-    [category: string]: {
-      [service: string]: StatusType;
-    };
-  };
+    categoryName: string;
+    services: Array<{
+      serviceName: string;
+      status: StatusType;
+    }>;
+  }[];
   statusUpdates: StatusUpdate[];
 }
 

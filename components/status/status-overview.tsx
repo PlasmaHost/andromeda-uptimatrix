@@ -5,8 +5,8 @@ import { StatusBadge } from "./status-badge";
 import type { StatusData } from "@/lib/types";
 
 export function StatusOverview({ data }: { data: StatusData }) {
-  const allOperational = Object.values(data.services).every((serviceGroup) =>
-    Object.values(serviceGroup).every((status) => status === "Operational")
+  const allOperational = data.services.every((category) =>
+    category.services.every((service) => service.status === "Operational")
   );
 
   return (

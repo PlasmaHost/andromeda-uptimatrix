@@ -16,7 +16,7 @@ const defaultData: StatusData = {
     maintenanceAlerts: false,
     statusUpdates: false
   },
-  services: {},
+  services: [],
   statusUpdates: []
 };
 
@@ -44,8 +44,19 @@ export default function Home() {
         }
         return res.json();
       })
-      .then((data) => {
-        setData(data);
+      .then((apiData) => {
+        // Transform the API response to match our new structure
+        const transformedData = {
+          ...apiData,
+          services: Object.entries(apiData.services).map(([categoryName, services]) => ({
+            categoryName,
+            services: Object.entries(services as Record<string, string>).map(([serviceName, status]) => ({
+              serviceName,
+              status,
+            })),
+          })),
+        };
+        setData(transformedData);
         setError(null);
       })
       .catch((error) => {
@@ -82,11 +93,11 @@ export default function Home() {
         <ServiceMetrics data={data} />
         
         <div className="grid gap-6">
-          {Object.entries(data.services).map(([category, services]) => (
+          {data.services.map((category) => (
             <StatusSection
-              key={category}
-              title={category}
-              services={services}
+              key={category.categoryName}
+              category={category.categoryName}
+              services={category.services}
             />
           ))}
         </div>
